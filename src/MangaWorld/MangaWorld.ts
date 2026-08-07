@@ -20,7 +20,7 @@ import {
 import { Parser } from './parser'
 import { URLBuilder } from './helper'
 
-const MW_DOMAIN = 'https://www.mangaworld.ac'
+const MW_DOMAIN = 'https://www.mangaworld.mx'
 
 export const MangaWorldInfo: SourceInfo = {
     version: '3.0.1',
@@ -41,16 +41,16 @@ export const MangaWorldInfo: SourceInfo = {
     intents: SourceIntents.MANGA_CHAPTERS | SourceIntents.HOMEPAGE_SECTIONS | SourceIntents.CLOUDFLARE_BYPASS_REQUIRED,
 }
 
-export class MangaWorld implements SearchResultsProviding, MangaProviding, ChapterProviding, HomePageSectionsProviding { 
+export class MangaWorld implements SearchResultsProviding, MangaProviding, ChapterProviding, HomePageSectionsProviding {
     baseUrl = MW_DOMAIN
-    constructor(private cheerio: CheerioAPI) {}
+    constructor(private cheerio: CheerioAPI) { }
     RETRIES = 10
     parser = new Parser()
 
     requestManager = App.createRequestManager({
         requestsPerSecond: 8,
     })
-    
+
     getMangaShareUrl(mangaId: string): string {
         return `${this.baseUrl}/manga/${mangaId}`
     }
