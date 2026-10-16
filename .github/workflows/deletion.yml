@@ -4,6 +4,10 @@ on:
     branches:
       - '**'
       - '!main'
+
+permissions:
+  contents: write
+
 jobs:
   delete:
     if: github.event.ref_type == 'branch'

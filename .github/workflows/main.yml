@@ -4,6 +4,10 @@ on:
     branches:
       - '**'
       - '!main'
+
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Bundle and Publish Sources
