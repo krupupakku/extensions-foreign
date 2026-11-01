@@ -24,7 +24,7 @@ const MD_API = 'https://api.mangadex.org'
 const MD_COVERS = 'https://uploads.mangadex.org/covers'
 
 // Languages for which chapters are fetched (MangaDex language codes)
-const LANGUAGES = ['it', 'en']
+const LANGUAGES = ['it', 'en', 'es', 'es-la']
 const PAGE_SIZE = 30
 const CHAPTER_PAGE_SIZE = 500
 const RATINGS = ['safe', 'suggestive', 'erotica']
@@ -50,7 +50,7 @@ export const MangaDexInfo: SourceInfo = {
 
 export class MangaDex implements SearchResultsProviding, MangaProviding, ChapterProviding, HomePageSectionsProviding {
     // No HTML parsing needed: MangaDex exposes a JSON API
-    constructor(_cheerio?: unknown) {}
+    constructor(_cheerio?: unknown) { }
 
     RETRIES = 3
     requestManager = App.createRequestManager({
@@ -130,7 +130,7 @@ export class MangaDex implements SearchResultsProviding, MangaProviding, Chapter
                 author: names('author'),
                 artist: names('artist'),
                 tags: [App.createTagSection({ id: 'genres', label: 'Genres', tags })],
-                desc: attr.description?.it ?? attr.description?.en ?? '',
+                desc: attr.description?.it ?? attr.description?.en ?? attr.description?.es ?? attr.description?.['es-la'] ?? '',
                 hentai: attr.contentRating === 'pornographic',
             }),
         })
@@ -167,7 +167,8 @@ export class MangaDex implements SearchResultsProviding, MangaProviding, Chapter
                         name: a.title ?? '',
                         chapNum: isNaN(chapNum) ? 0 : chapNum,
                         volume: a.volume ? Number(a.volume) : undefined,
-                        langCode: a.translatedLanguage ?? 'en',
+                        // Paperback has no Latin American Spanish code: map it to plain 'es'
+                        langCode: a.translatedLanguage === 'es-la' ? 'es' : a.translatedLanguage ?? 'en',
                         group: group,
                         time: new Date(a.publishAt ?? a.createdAt),
                         sortingIndex: index++,
