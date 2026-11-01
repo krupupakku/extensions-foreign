@@ -466,7 +466,7 @@ const MD_DOMAIN = 'https://mangadex.org';
 const MD_API = 'https://api.mangadex.org';
 const MD_COVERS = 'https://uploads.mangadex.org/covers';
 // Languages for which chapters are fetched (MangaDex language codes)
-const LANGUAGES = ['it', 'en'];
+const LANGUAGES = ['it', 'en', 'es', 'es-la'];
 const PAGE_SIZE = 30;
 const CHAPTER_PAGE_SIZE = 500;
 const RATINGS = ['safe', 'suggestive', 'erotica'];
@@ -556,7 +556,7 @@ class MangaDex {
                 author: names('author'),
                 artist: names('artist'),
                 tags: [App.createTagSection({ id: 'genres', label: 'Genres', tags })],
-                desc: attr.description?.it ?? attr.description?.en ?? '',
+                desc: attr.description?.it ?? attr.description?.en ?? attr.description?.es ?? attr.description?.['es-la'] ?? '',
                 hentai: attr.contentRating === 'pornographic',
             }),
         });
@@ -586,7 +586,8 @@ class MangaDex {
                     name: a.title ?? '',
                     chapNum: isNaN(chapNum) ? 0 : chapNum,
                     volume: a.volume ? Number(a.volume) : undefined,
-                    langCode: a.translatedLanguage ?? 'en',
+                    // Paperback has no Latin American Spanish code: map it to plain 'es'
+                    langCode: a.translatedLanguage === 'es-la' ? 'es' : a.translatedLanguage ?? 'en',
                     group: group,
                     time: new Date(a.publishAt ?? a.createdAt),
                     sortingIndex: index++,
