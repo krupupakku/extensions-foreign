@@ -1,5 +1,5 @@
 {
-  "name": "nmn-extension-foreign-0.8",
+  "name": "krupupakku 0.8",
   "repositoryName": "krupupakku's extension",
   "version": "2.0.0",
   "description": "Repo for non-english manga sources. (0.8)",
@@ -10,7 +10,7 @@
     "debug": "npx paperback logcat --ip=192.168.29.226",
     "test": "node_modules/.bin/mocha --timeout 300000 -r ts-node/register src/**/*.test.ts"
   },
-  "author": "NmN",
+  "author": "krupupakku",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
