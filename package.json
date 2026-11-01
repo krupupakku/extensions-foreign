@@ -2,7 +2,7 @@
   "name": "krupupakku 0.8",
   "repositoryName": "krupupakku's extension",
   "version": "2.0.0",
-  "description": "Repo for non-english manga sources. (0.8)",
+  "description": "My favourite repos for 0.8",
   "main": "index.js",
   "scripts": {
     "bundle": "npx paperback bundle",
